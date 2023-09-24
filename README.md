@@ -22,7 +22,7 @@ Difficulty configuring VR headset to a laptop with a graphics card that meets sp
 Security issues with API authorization
 
 ## Future Plans
-Incorporate real-time API calls into the VR simulation.
+Incorporate real-time API calls into the VR simulation. With the API calls, we could dispaly a dashboard with numerical data describing the field.
 
 # Images
 

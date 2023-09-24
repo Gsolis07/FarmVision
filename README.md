@@ -21,6 +21,9 @@ Didn't have access to some APIs for certain requests <br>
 Difficulty configuring VR headset to a laptop with a graphics card that meets specifications <br>
 Security issues with API authorization
 
+# Future Plans
+Incorporate real-time API calls into the VR simulation.
+
 ![image](https://github.com/Nick-Hageman/FarmVision/assets/91706603/8ae215b1-9594-430c-b84e-12bccdb05f54)
 <br>
 ![image](https://github.com/Nick-Hageman/FarmVision/assets/91706603/fea7882c-e2f9-4cc9-bebd-8c18c8977705)

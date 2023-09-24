@@ -43,6 +43,10 @@ public class PixelColorExtrusion : MonoBehaviour
                     if (pixelColor.a > 0)
                     {
                         GameObject extrusionObject = CreateExtrusionCube(pixelScale, extrusion, pixelColor);
+                        Material cubeMaterial = new Material(Shader.Find("UI/Default"));
+                        cubeMaterial.color = pixelColor;
+
+                        extrusionObject.GetComponent<Renderer>().material = cubeMaterial;
 
                         // Calculate the world space position of the extrusion cube.
                         Vector3 position = new Vector3(

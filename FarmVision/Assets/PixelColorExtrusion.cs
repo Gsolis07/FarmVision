@@ -27,7 +27,11 @@ public class PixelColorExtrusion : MonoBehaviour
                 Color pixelColor = sourceTexture.GetPixel(x, y);
 
                 // Calculate the extrusion height based on pixel color (Red = high, Green = low).
-                float extrusion = (1.0f - pixelColor.g) * extrusionHeight;
+                float extrusion = (pixelColor.b + (pixelColor.g - pixelColor.r) + 0.8f) * extrusionHeight;
+                if ((pixelColor.r < 0.5f && pixelColor.b < 0.5f && pixelColor.g < 0.5f) || extrusion < 0.0f)
+                {
+                    extrusion = 0.0f;
+                }
 
                 // Create a cube extrusion if the pixel is not fully transparent.
                 if (pixelColor.a > 0)

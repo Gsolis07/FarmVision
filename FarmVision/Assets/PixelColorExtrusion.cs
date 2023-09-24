@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PixelColorExtrusion : MonoBehaviour
@@ -11,44 +13,49 @@ public class PixelColorExtrusion : MonoBehaviour
 
     private void Start()
     {
-        if (sourceTexture == null)
+        // Check if the Mesh Renderer component is enabled on the GameObject.
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer != null && meshRenderer.enabled)
         {
-            Debug.LogError("Please assign a source texture in the Inspector.");
-            return;
-        }
-
-        // Create a GameObject to hold the extrusions.
-        GameObject extrusionContainer = new GameObject("ExtrusionContainer");
-
-        for (int x = 0; x < sourceTexture.width; x+=4)
-        {
-            for (int y = 0; y < sourceTexture.height; y+=4)
+            if (sourceTexture == null)
             {
-                Color pixelColor = sourceTexture.GetPixel(x, y);
+                Debug.LogError("Please assign a source texture in the Inspector.");
+                return;
+            }
 
-                // Calculate the extrusion height based on pixel color (Red = high, Green = low).
-                float extrusion = (pixelColor.b + (pixelColor.g - pixelColor.r) + 0.8f) * extrusionHeight;
-                if ((pixelColor.r < 0.5f && pixelColor.b < 0.5f && pixelColor.g < 0.5f) || extrusion < 0.0f)
+            // Create a GameObject to hold the extrusions.
+            GameObject extrusionContainer = new GameObject("ExtrusionContainer");
+
+            for (int x = 0; x < sourceTexture.width; x += 4)
+            {
+                for (int y = 0; y < sourceTexture.height; y += 4)
                 {
-                    extrusion = 0.0f;
-                }
+                    Color pixelColor = sourceTexture.GetPixel(x, y);
 
-                // Create a cube extrusion if the pixel is not fully transparent.
-                if (pixelColor.a > 0)
-                {
-                    GameObject extrusionObject = CreateExtrusionCube(pixelScale, extrusion, pixelColor);
+                    // Calculate the extrusion height based on pixel color (Red = high, Green = low).
+                    float extrusion = (pixelColor.b + (pixelColor.g - pixelColor.r) + 0.8f) * extrusionHeight;
+                    if ((pixelColor.r < 0.5f && pixelColor.b < 0.5f && pixelColor.g < 0.5f) || extrusion < 0.0f)
+                    {
+                        extrusion = 0.0f;
+                    }
 
-                    // Calculate the world space position of the extrusion cube.
-                    Vector3 position = new Vector3(
-                        x * pixelScale + offset.x,
-                        extrusion / 2f + offset.y,
-                        y * pixelScale + offset.z
-                    );
+                    // Create a cube extrusion if the pixel is not fully transparent.
+                    if (pixelColor.a > 0)
+                    {
+                        GameObject extrusionObject = CreateExtrusionCube(pixelScale, extrusion, pixelColor);
 
-                    extrusionObject.transform.position = position;
+                        // Calculate the world space position of the extrusion cube.
+                        Vector3 position = new Vector3(
+                            x * pixelScale + offset.x,
+                            extrusion / 2f + offset.y,
+                            y * pixelScale + offset.z
+                        );
 
-                    // Parent the extrusion cube to the container for organization.
-                    extrusionObject.transform.SetParent(extrusionContainer.transform);
+                        extrusionObject.transform.position = position;
+
+                        // Parent the extrusion cube to the container for organization.
+                        extrusionObject.transform.SetParent(extrusionContainer.transform);
+                    }
                 }
             }
         }

@@ -1,5 +1,7 @@
 # FarmVision
 
+https://github.com/Nick-Hageman/FarmVision/assets/91749467/1cf6e984-734c-4d67-ba78-525dcc7fd2b7
+
 ## Inspiration
 We wanted to work with John Deere Precision Ag APIs, and we also had a Quest 2 virtual reality headset at our disposal. The API provided satellite image layers which we thought could be nicely modeled in a 3D environment.
 
